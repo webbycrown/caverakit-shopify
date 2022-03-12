@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection"
+    },
+    "main_list_collections": {
+      "type": "main-list-collections"
+    }
+  },
+  "order": [
+    "main",
+    "main_list_collections"
+  ]
+}

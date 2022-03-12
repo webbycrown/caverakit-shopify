@@ -1,0 +1,173 @@
+
+{%- paginate blog.articles by 6 -%}
+
+<div class="relative bg-gray-50 pt-12 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-28 lg:px-8">
+
+  <div class="relative max-w-7xl mx-auto">
+    <div class="text-center">
+      <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
+        {{ blog.title | escape }}
+      </h1>
+    </div>
+
+    <div class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
+      {%- for article in blog.articles -%}
+      <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+      
+        <div class="flex-shrink-0">
+        <a href="{{ article.url }}" class="block">
+          <img
+            srcset="{%- if article.image.src.width >= 165 -%}{{ article.image.src | img_url: '165x' }} 165w,{%- endif -%}
+              {%- if article.image.src.width >= 360 -%}{{ article.image.src | img_url: '360x' }} 360w,{%- endif -%}
+              {%- if article.image.src.width >= 533 -%}{{ article.image.src | img_url: '533x' }} 533w,{%- endif -%}
+              {%- if article.image.src.width >= 720 -%}{{ article.image.src | img_url: '720x' }} 720w,{%- endif -%}
+              {%- if article.image.src.width >= 1000 -%}{{ article.image.src | img_url: '1000x' }} 1000w,{%- endif -%}
+              {%- if article.image.src.width >= 1500 -%}{{ article.image.src | img_url: '1500x' }} 1500w,{%- endif -%}
+              {{ article.image.src | img_url: 'master' }} {{ article.image.src.width }}w"
+            src="{{ article.image.src | img_url: '533x' }}"
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+            alt="{{ article.image.src.alt | escape }}"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}"
+            loading="lazy"
+            class="motion-reduce h-48 w-full object-cover"
+          >
+          </a>
+        </div>
+        <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-indigo-600">
+              <a href="{{ article.url }}" class="hover:underline">
+                Article
+              </a>
+            </p>
+            <a href="{{ article.url }}" class="block mt-2">
+              <p class="text-xl font-semibold text-gray-900">
+                {{ article.title | escape }}
+              </p>
+               {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+              <p class="mt-5 text-base text-gray-500">
+                {%- if article.excerpt.size > 0 -%}
+                  {{ article.excerpt | strip_html | truncatewords: 30 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 30 }}
+                {%- endif -%}
+              </p>
+              {%- endif -%}
+            </a>
+          </div>
+          <div class="mt-6 flex items-center">
+            <div class="flex-shrink-0">
+              <a href="{{ article.url }}">
+                <span class="sr-only">{{ article.author }}</span>
+                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              </a>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-gray-900">
+                <a href="{{ article.url }}" class="hover:underline">
+                  {{ article.author }}
+                </a>
+              </p>
+              <div class="flex space-x-1 text-sm text-gray-500">
+                <time datetime="2020-03-16">
+                  {{ article.published_at | time_tag: format: 'date' }}
+                </time>
+                <span aria-hidden="true">
+                  &middot;
+                </span>
+                <span>
+                  6 min read
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{%- endfor -%}
+      
+    </div>
+    {%- if paginate.pages > 1 -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endif -%}
+  </div>
+</div>
+{%- endpaginate -%}
+
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.settings.header.content"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.main-blog.settings.layout.options__1.label"
+        },
+        {
+          "value": "collage",
+          "label": "t:sections.main-blog.settings.layout.options__2.label"
+        }
+      ],
+      "default": "collage",
+      "label": "t:sections.main-blog.settings.layout.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_image.label"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.main-blog.settings.image_height.options__1.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.main-blog.settings.image_height.options__2.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.main-blog.settings.image_height.options__3.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.main-blog.settings.image_height.options__4.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.main-blog.settings.image_height.label",
+      "info": "t:sections.main-blog.settings.image_height.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-blog.settings.paragraph.content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+{
+	"action": {
+		"log_in": "Log in",
+		"log_out": "Log out",
+		"register": "Register",
+		"account": "Account",
+		"cart": "Cart"
+	},
+	"customer": {
+		"recover_password": {
+			"title": "Hey here!"
+		}
+	},
+	"404": {
+		"title": "404 Page Not Found",
+		"text": "The page you requested does not exist."
+	}
+}

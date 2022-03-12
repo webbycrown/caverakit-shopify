@@ -1,0 +1,42 @@
+{
+	"sections": {
+		"image_banner": {
+	      "type": "image-banner"
+	    },
+	    "rich_text": {
+	      "type": "rich-text"
+	    },
+	    "featured_product": {
+	      "type": "featured-product"
+	    },
+	    "featured_collection": {
+	      "type": "featured-collection"
+	    },
+	    "testimonials": {
+	      "type": "testimonials"
+	    },
+	    "featured_blog": {
+	      "type": "featured-blog"
+	    },
+	    "image_with_text": {
+	      "type": "image-with-text"
+	    },
+	    "grid_with_offset_icons": {
+	      "type": "grid-with-offset-icons"
+	    },
+		"main": {
+			"type": "main-index"
+		}
+	},
+	"order": [
+		"image_banner",
+		"rich_text",
+		"featured_product",
+		"featured_collection",
+		"testimonials",
+		"featured_blog",
+		"image_with_text",
+		"grid_with_offset_icons",
+		"main"
+	]
+}
